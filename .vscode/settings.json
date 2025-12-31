@@ -1,4 +1,38 @@
 {
+  "custom-ui-style.electron": {
+    "frame": true,
+    "transparent": false,
+    "vibrancy": "under-window", // fullscreen-ui, sidebar, under-window
+    "backgroundColor": "#00000000",
+    "visualEffectState": "active",
+    "backgroundMaterial": "acrylic" // acrylic, mica
+  },
+  "custom-ui-style.font.sansSerif": "JetbrainsMono NF",
+  "custom-ui-style.stylesheet": {
+    "body > .monaco-workbench": "background-color: #00000000 !important;",
+    ".monaco-workbench .part.titlebar": "background-color: transparent !important;",
+    ".monaco-workbench .part.titlebar .titlebar-center": "color: transparent !important;",
+    ".notification-toast": "box-shadow: none !important",
+    ".quick-input-widget.show-file-icons": "box-shadow: none !important",
+    ".quick-input-widget": "top: 25vh !important;",
+    ".quick-input-list .scrollbar": "display: none",
+    ".monaco-action-bar.quick-input-inline-action-bar": "display: none",
+    ".monaco-workbench .part.editor > .content .editor-group-container > .title.title-border-bottom:after": "display: none",
+    ".monaco-workbench .part.editor>.content .editor-group-container>.title .tabs-container>.tab.active.tab-border-top:not(:focus)>.tab-border-top-container, .monaco-workbench .part.editor>.content .editor-group-container>.title .tabs-container>.tab.selected.tab-border-top:not(:focus)>.tab-border-top-container": "display: none;",
+    ".monaco-workbench .monaco-list:not(.element-focused):focus:before": "outline: none !important",
+    ".monaco-list-row.focused": "outline: none !important",
+    ".monaco-editor .scroll-decoration": "display: none",
+    ".monaco-editor .find-widget .monaco-sash.vertical": "display: none",
+    ".monaco-workbench .part>.title>.title-label": "padding-left: 2px",
+    ".monaco-workbench .pane-composite-part>.title>.composite-bar-container>.composite-bar>.monaco-action-bar .action-item .active-item-indicator, .monaco-workbench .pane-composite-part>.header-or-footer>.composite-bar-container>.composite-bar>.monaco-action-bar .action-item .active-item-indicator::before": "display: none",
+    ".monaco-workbench .pane>.pane-body .welcome-view-content": "outline: none",
+    ".monaco-workbench .part.editor>.content .editor-group-container>.title>.tabs-and-actions-container>.monaco-scrollable-element .scrollbar": "display: none;",
+    ".monaco-scrollable-element>.scrollbar>.slider": "display: none;",
+    ".monaco-workbench .part.editor>.content .editor-group-container>.title .tabs-container>.tab.active.tab-border-bottom>.tab-border-bottom-container": "display: none !important;",
+    ".monaco-editor .native-edit-context:focus-visible": "color: transparent !important;"
+    // ".monaco-workbench .part.sidebar > .title,.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container": "app-region: drag;", // enable tabbar drag
+    // ".monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab": "app-region: no-drag;",
+  },
   "i18n-ally.localesPaths": "scripts/locales",
   "i18n-ally.sourceLanguage": "en",
   "i18n-ally.sortKeys": true,
@@ -57,5 +91,6 @@
     "jsonc",
     "yaml",
     "toml"
-  ]
+  ],
+  "codingcopilot.enableCompletionLanguage": {}
 }
