@@ -23,7 +23,40 @@
 
 /* _____________ 你的代码 _____________ */
 
-type AppendArgument<Fn, A> = any
+/**
+ * AppendArgument<Fn, A> - 在函数参数末尾追加一个新参数
+ *
+ * 【核心知识点】
+ *
+ * 1. 函数类型的条件推断
+ *    - 使用 `Fn extends (...args: infer P) => infer R` 提取参数和返回值
+ *    - P 是参数元组类型，R 是返回值类型
+ *
+ * 2. 展开运算符在类型中的应用
+ *    - `...P` 可以在函数参数位置展开元组类型
+ *    - `[...P, A]` 在元组末尾追加新类型
+ *
+ * 3. 泛型约束
+ *    - `Fn extends (...args: any[]) => any` 确保 Fn 是函数类型
+ *    - 非函数类型会触发 @ts-expect-error
+ *
+ * 【实现思路】
+ *
+ * 步骤1: 约束 Fn 必须是函数类型
+ * 步骤2: 使用 infer 提取原函数的参数 P 和返回值 R
+ * 步骤3: 构造新函数，参数为 [...P, A]，返回值为 R
+ *
+ * 【示例分析】
+ *
+ * AppendArgument<(a: number, b: string) => number, boolean>
+ * 1. P = [a: number, b: string]
+ * 2. R = number
+ * 3. 返回 (a: number, b: string, x: boolean) => number
+ */
+type AppendArgument<Fn extends (...args: any[]) => any, A> =
+  Fn extends (...args: infer P) => infer R
+    ? (...args: [...P, A]) => R
+    : never
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
