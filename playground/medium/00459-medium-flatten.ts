@@ -18,7 +18,66 @@
 
 /* _____________ 你的代码 _____________ */
 
-type Flatten = any
+/**
+ * Flatten<T> - 递归扁平化数组类型
+ *
+ * 【核心知识点】
+ *
+ * 1. 数组的递归解构
+ *    - `T extends [infer First, ...infer Rest]` 将数组拆分为首元素和剩余部分
+ *    - First: 第一个元素，Rest: 剩余元素组成的数组
+ *
+ * 2. 条件类型的嵌套判断
+ *    - 先判断 First 是否为数组类型
+ *    - 如果是数组，递归扁平化 First
+ *    - 如果不是数组，直接保留
+ *
+ * 3. 展开运算符的类型应用
+ *    - `...Flatten<First>` 展开递归扁平化的结果
+ *    - `...Flatten<Rest>` 展开剩余部分的扁平化结果
+ *
+ * 【实现思路】
+ *
+ * 递归过程：
+ * 1. 检查输入是否为数组，非数组报错
+ * 2. 将数组拆分为 [First, ...Rest]
+ * 3. 判断 First 是否为数组：
+ *    - 是数组：递归扁平化 First，然后处理 Rest
+ *    - 不是数组：保留 First，然后处理 Rest
+ * 4. 数组为空时返回空数组
+ *
+ * 【执行示例】
+ *
+ * Flatten<[1, [2, 3], [[4]]]>
+ *
+ * 第1步: T = [1, [2, 3], [[4]]]
+ * → First = 1, Rest = [[2, 3], [[4]]]
+ * → 1 extends any[] ? false
+ * → [1, ...Flatten<[[2, 3], [[4]]]>]
+ *
+ * 第2步: Flatten<[[2, 3], [[4]]]>
+ * → First = [2, 3], Rest = [[[4]]]
+ * → [2, 3] extends any[] ? true
+ * → [...Flatten<[2, 3]>, ...Flatten<[[[4]]]>]
+ *
+ * 第3步: Flatten<[2, 3]>
+ * → First = 2, Rest = [3]
+ * → 2 extends any[] ? false
+ * → [2, ...Flatten<[3]>] → [2, 3]
+ *
+ * 第4步: Flatten<[[[4]]]>
+ * → First = [[4]], Rest = []
+ * → [[4]] extends any[] ? true
+ * → [...Flatten<[[4]]>, ...Flatten<[]>]
+ * → [...[4], ...[]] → [4]
+ *
+ * 最终结果: [1, ...([2, 3] ∪ [4])] = [1, 2, 3, 4]
+ */
+type Flatten<T extends any[]> = T extends [infer First, ...infer Rest]
+  ? First extends any[]
+    ? [...Flatten<First>, ...Flatten<Rest>]
+    : [First, ...Flatten<Rest>]
+  : []
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
